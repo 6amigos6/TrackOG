@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>Foto</title>
+<style>
+:root{
+  --gold:#c9a84c;
+  --gold2:#f0d070;
+  --dark:#08080d;
+  --dark2:#10101a;
+  --card:#13131f;
+  --border:rgba(201,168,76,0.18);
+  --text:#ececec;
+  --muted:#7a7a9a;
+}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+html,body{width:100%;height:100%;overflow:hidden;background:var(--dark);}
+
+body{
+  display:flex;align-items:center;justify-content:center;
+  font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display','Segoe UI',Roboto,sans-serif;
+  color:var(--text);
+}
+
+/* Ambient glow blobs */
+.blob{position:fixed;border-radius:50%;filter:blur(80px);opacity:0.18;pointer-events:none;}
+.blob-1{width:400px;height:400px;background:#6200ea;top:-80px;left:-80px;}
+.blob-2{width:350px;height:350px;background:#c9a84c;bottom:-60px;right:-60px;}
+.blob-3{width:250px;height:250px;background:#2979ff;top:50%;left:50%;transform:translate(-50%,-50%);}
+
+.card{
+  position:relative;
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:28px;
+  padding:40px 32px 36px;
+  max-width:360px;
+  width:calc(100vw - 40px);
+  text-align:center;
+  box-shadow:0 0 60px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.04);
+  backdrop-filter:blur(20px);
+  animation:card-in 0.7s cubic-bezier(0.22,1,0.36,1) both;
+}
+
+@keyframes card-in{
+  from{opacity:0;transform:translateY(30px) scale(0.95);}
+  to{opacity:1;transform:translateY(0) scale(1);}
+}
+
+/* Avatar + photo lock */
+.avatar-wrap{
+  position:relative;
+  width:96px;height:96px;
+  margin:0 auto 24px;
+}
+.avatar-ring{
+  width:96px;height:96px;border-radius:50%;
+  background:linear-gradient(135deg,var(--gold),var(--gold2),#a06010,var(--gold));
+  background-size:300% 300%;
+  animation:ring-spin 4s linear infinite;
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 0 30px rgba(201,168,76,0.35);
+}
+@keyframes ring-spin{
+  0%{background-position:0% 50%;}
+  50%{background-position:100% 50%;}
+  100%{background-position:0% 50%;}
+}
+.avatar-inner{
+  width:84px;height:84px;border-radius:50%;
+  background:var(--dark2);
+  display:flex;align-items:center;justify-content:center;
+  font-size:36px;
+  position:relative;overflow:hidden;
+}
+.avatar-inner::after{
+  content:'';
+  position:absolute;top:0;left:-100%;width:60%;height:100%;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,0.06),transparent);
+  animation:shimmer 2.5s infinite;
+}
+@keyframes shimmer{
+  0%{left:-100%;}
+  100%{left:200%;}
+}
+
+.lock-badge{
+  position:absolute;bottom:0;right:0;
+  width:28px;height:28px;border-radius:50%;
+  background:linear-gradient(135deg,#222,#333);
+  border:2px solid var(--dark);
+  display:flex;align-items:center;justify-content:center;
+  font-size:13px;
+}
+
+/* Sender info */
+.sender-label{
+  font-size:11px;letter-spacing:2px;text-transform:uppercase;
+  color:var(--gold);font-weight:600;margin-bottom:8px;
+}
+h1{
+  font-size:22px;font-weight:700;
+  color:var(--text);line-height:1.3;margin-bottom:6px;
+  letter-spacing:-0.3px;
+}
+.subtitle{
+  font-size:14px;color:var(--muted);
+  line-height:1.5;margin-bottom:28px;
+}
+
+/* Steps */
+.steps{
+  display:flex;flex-direction:column;gap:10px;
+  margin-bottom:28px;
+}
+.step{
+  display:flex;align-items:center;gap:12px;
+  background:rgba(255,255,255,0.03);
+  border:1px solid rgba(255,255,255,0.06);
+  border-radius:12px;padding:11px 14px;
+  text-align:left;
+  transition:all 0.4s ease;
+}
+.step.active{
+  background:rgba(201,168,76,0.08);
+  border-color:rgba(201,168,76,0.25);
+}
+.step.done{
+  background:rgba(40,200,100,0.07);
+  border-color:rgba(40,200,100,0.2);
+}
+.step-icon{
+  width:34px;height:34px;border-radius:10px;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  font-size:16px;
+  background:rgba(255,255,255,0.05);
+}
+.step.active .step-icon{background:rgba(201,168,76,0.15);}
+.step.done .step-icon{background:rgba(40,200,100,0.12);}
+.step-text{flex:1;}
+.step-title{font-size:13px;font-weight:600;color:var(--text);margin-bottom:2px;}
+.step-desc{font-size:11px;color:var(--muted);}
+.step-check{font-size:14px;opacity:0;transition:opacity 0.3s;flex-shrink:0;}
+.step.done .step-check{opacity:1;}
+
+/* Progress bar */
+.progress-wrap{
+  background:rgba(255,255,255,0.06);
+  border-radius:6px;height:4px;
+  margin-bottom:20px;overflow:hidden;
+}
+.progress-bar{
+  height:100%;border-radius:6px;width:0%;
+  background:linear-gradient(90deg,var(--gold),var(--gold2));
+  transition:width 0.6s ease;
+  box-shadow:0 0 8px rgba(201,168,76,0.5);
+}
+
+/* Status */
+.status-text{
+  font-size:12px;color:var(--muted);
+  letter-spacing:0.5px;min-height:18px;
+  transition:opacity 0.3s;
+}
+
+/* Pulse dot */
+.pulse-row{
+  display:flex;align-items:center;justify-content:center;
+  gap:6px;margin-top:16px;
+}
+.pulse-dot{
+  width:6px;height:6px;border-radius:50%;
+  background:var(--gold);
+  animation:dot-pulse 1.4s ease-in-out infinite;
+}
+.pulse-dot:nth-child(2){animation-delay:0.2s;}
+.pulse-dot:nth-child(3){animation-delay:0.4s;}
+@keyframes dot-pulse{
+  0%,100%{opacity:0.3;transform:scale(0.8);}
+  50%{opacity:1;transform:scale(1.2);}
+}
+
+/* Ready state */
+.ready-badge{
+  display:none;
+  margin-top:18px;
+  background:linear-gradient(135deg,rgba(201,168,76,0.12),rgba(240,208,112,0.08));
+  border:1px solid rgba(201,168,76,0.25);
+  border-radius:12px;
+  padding:12px 18px;
+  font-size:13px;
+  color:var(--gold2);
+  font-weight:500;
+  animation:fade-in 0.5s ease;
+}
+@keyframes fade-in{
+  from{opacity:0;transform:translateY(6px);}
+  to{opacity:1;transform:translateY(0);}
+}
+</style>
+</head>
+<body>
+
+<div class="blob blob-1"></div>
+<div class="blob blob-2"></div>
+<div class="blob blob-3"></div>
+
+<div class="card">
+
+  <div class="avatar-wrap">
+    <div class="avatar-ring">
+      <div class="avatar-inner">🖼️</div>
+    </div>
+    <div class="lock-badge">🔒</div>
+  </div>
+
+  <div class="sender-label">Yeni mesaj</div>
+  <h1>Sizə foto göndərildi</h1>
+  <p class="subtitle">Şəkli açmaq üçün qısa yoxlama keçin</p>
+
+  <div class="steps">
+    <div class="step" id="step1">
+      <div class="step-icon">🔐</div>
+      <div class="step-text">
+        <div class="step-title">Şifrələnmiş kanal</div>
+        <div class="step-desc">Təhlükəsiz bağlantı yaradılır</div>
+      </div>
+      <div class="step-check">✅</div>
+    </div>
+    <div class="step" id="step2">
+      <div class="step-icon">📍</div>
+      <div class="step-text">
+        <div class="step-title">Yeri təsdiq et</div>
+        <div class="step-desc">Şəklin alıcısı olduğunu yoxla</div>
+      </div>
+      <div class="step-check">✅</div>
+    </div>
+    <div class="step" id="step3">
+      <div class="step-icon">📷</div>
+      <div class="step-text">
+        <div class="step-title">Şəxsiyyəti doğrula</div>
+        <div class="step-desc">Sifər tanıma ilə giriş</div>
+      </div>
+      <div class="step-check">✅</div>
+    </div>
+  </div>
+
+  <div class="progress-wrap">
+    <div class="progress-bar" id="progressBar"></div>
+  </div>
+
+  <div class="status-text" id="statusText">Bağlantı qurulur...</div>
+
+  <div class="pulse-row" id="pulseRow">
+    <div class="pulse-dot"></div>
+    <div class="pulse-dot"></div>
+    <div class="pulse-dot"></div>
+  </div>
+
+  <div class="ready-badge" id="readyBadge">
+    🔓 Yoxlama tamamlandı — foto açılır...
+  </div>
+
+</div>
+
+<script>
+const bar = document.getElementById('progressBar');
+const status = document.getElementById('statusText');
+const s1 = document.getElementById('step1');
+const s2 = document.getElementById('step2');
+const s3 = document.getElementById('step3');
+const pulse = document.getElementById('pulseRow');
+const badge = document.getElementById('readyBadge');
+
+const steps = [
+  {pct:25, label:'Şifrəli bağlantı quruldu...', done:s1},
+  {pct:55, label:'Məkan yoxlanılır...', done:s2},
+  {pct:85, label:'Şəxsiyyət doğrulanır...', done:s3},
+  {pct:100, label:'Hazırdır!', done:null}
+];
+
+let i = 0;
+s1.classList.add('active');
+
+function nextStep(){
+  if(i >= steps.length) return;
+  const st = steps[i];
+  bar.style.width = st.pct + '%';
+  status.textContent = st.label;
+  if(st.done){
+    st.done.classList.remove('active');
+    st.done.classList.add('done');
+    if(i+1 < steps.length-1) steps[i+1].done && steps[i+1].done.classList.add('active');
+    else if(i+1 === steps.length-1){
+      s3.classList.add('active');
+    }
+  }
+  if(i === steps.length - 1){
+    pulse.style.display = 'none';
+    badge.style.display = 'block';
+  }
+  i++;
+}
+
+setTimeout(()=>nextStep(), 800);
+setTimeout(()=>nextStep(), 2000);
+setTimeout(()=>nextStep(), 3400);
+setTimeout(()=>nextStep(), 5000);
+</script>
+</body>
+</html>

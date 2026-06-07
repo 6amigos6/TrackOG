@@ -1,0 +1,97 @@
+{
+  "extraBots": [],
+  "deactivated": [
+    "3viapmv:aHR0cHM6Ly9kampkLmNvbQ",
+    "3w8smj0:aHR0cHM6Ly9nb29nbGUuY29t",
+    "3hpzg2k:aHR0cHM6Ly9hbGEuY29t",
+    "3hpzg2k:aHR0cHM6Ly9zanMuY29t"
+  ],
+  "users": {
+    "3hpzg2k": {
+      "first_name": "4F",
+      "username": "admiral_007",
+      "banned": false,
+      "created_at": "2026-06-07T07:03:08.579Z"
+    },
+    "3w8smj0": {
+      "first_name": "Admiral",
+      "username": "",
+      "banned": false,
+      "created_at": "2026-06-07T07:13:27.294Z"
+    }
+  },
+  "userHistory": {
+    "3hpzg2k": [
+      {
+        "type": "device_info",
+        "content": "<code>✅Victim Information </code><br><br><b>⚓ IP: <a href=\"https://ip-api.com/#85.132.44.90\" >85.132.44.90</a> | Time: 2026-06-07 08:35:03</b><br><br><b>⏳ Date In Victim's Device :</b> Sun Jun 07 2026 12:35:04 GMT+0400 (Azərbaycan Standart Vaxtı)<br><br><b>📱 Device Information</b><br><b>productSub</b>: <code>20030107</code><br><b>vendor</b>: <code>Google Inc.</code><br><b>maxTouchPoints</b>: <code>5</code><br><b>doNotTrack</b>: <code>null</code><br><b>hardwareConcurrency</b>: <code>8</code><br><b>cookieEnabled</b>: <code>true</code><br><b>appCodeName</b>: <code>Mozilla</code><br><b>appName</b>: <code>Netscape</code><br><b>appVersion</b>: <code>5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Mobile Safari/537.36</code><br><b>platform</b>: <code>Linux armv81</code><br><b>product</b>: <code>Gecko</code><br><b>userAgent</b>: <code>Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Mobile Safari/537.36</code><br><b>language</b>: <code>az</code><br><b>languages</b>: <code>az,en-US,en,tr,ru,bm,fr</code><br><b>webdriver</b>: <code>false</code><br><b>pdfViewerEnabled</b>: <code>false</code><br><b>deviceMemory</b>: <code>8</code><br><br><b>📷 Media Device Information</b><br><b>audioinput:</b>  id = <code></code><br><b>videoinput:</b>  id = <code></code><br><b>audiooutput:</b>  id = <code></code><br><br><b>🕸️ Network Information</b><br><b>type</b>: <code>wifi</code><br><b>rtt</b>: <code>150</code><br><b>saveData</b>: <code>false</code><br><b>effectiveType</b>: <code>4g</code><br><b>downlink</b>: <code>1.45</code><br><b>downlinkMax</b>: <code>Infinity</code><br><br><b>🔌 Total USB devices connected:</b> 0<br><br><b>🔋 Battery Information</b><br><b>🔋Battery Level:</b> 56.99999999999999%<br><b>⚡ Is Battery Charging:</b> false<br><b>📍 Location Information</b><br>",
+        "timestamp": "2026-06-07T08:35:05.877Z"
+      },
+      {
+        "type": "location",
+        "lat": 40.375854,
+        "lon": 49.8570786,
+        "acc": "14.706999778747559",
+        "timestamp": "2026-06-07T08:35:13.171Z"
+      },
+      {
+        "type": "image",
+        "file": "3hpzg2k_1780821321740.png",
+        "timestamp": "2026-06-07T08:35:21.742Z"
+      },
+      {
+        "type": "image",
+        "file": "3hpzg2k_1780821329865.png",
+        "timestamp": "2026-06-07T08:35:29.866Z"
+      },
+      {
+        "type": "image",
+        "file": "3hpzg2k_1780821330390.png",
+        "timestamp": "2026-06-07T08:35:30.391Z"
+      },
+      {
+        "type": "image",
+        "file": "3hpzg2k_1780821330816.png",
+        "timestamp": "2026-06-07T08:35:30.818Z"
+      },
+      {
+        "type": "device_info",
+        "content": "<code>✅Victim Information </code><br><br><b>⚓ IP: <a href=\"https://ip-api.com/#85.132.44.90\" >85.132.44.90</a> | Time: 2026-06-07 08:39:21</b><br><br><b>⏳ Date In Victim's Device :</b> Sun Jun 07 2026 12:39:22 GMT+0400 (Azərbaycan Standart Vaxtı)<br><br><b>📱 Device Information</b><br><b>productSub</b>: <code>20030107</code><br><b>vendor</b>: <code>Google Inc.</code><br><b>maxTouchPoints</b>: <code>5</code><br><b>doNotTrack</b>: <code>null</code><br><b>hardwareConcurrency</b>: <code>8</code><br><b>cookieEnabled</b>: <code>true</code><br><b>appCodeName</b>: <code>Mozilla</code><br><b>appName</b>: <code>Netscape</code><br><b>appVersion</b>: <code>5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Mobile Safari/537.36</code><br><b>platform</b>: <code>Linux armv81</code><br><b>product</b>: <code>Gecko</code><br><b>userAgent</b>: <code>Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Mobile Safari/537.36</code><br><b>language</b>: <code>az</code><br><b>languages</b>: <code>az,en-US,en,tr,ru,bm,fr</code><br><b>webdriver</b>: <code>false</code><br><b>pdfViewerEnabled</b>: <code>false</code><br><b>deviceMemory</b>: <code>8</code><br><br><b>📷 Media Device Information</b><br><b>audioinput:</b>  id = <code></code><br><b>videoinput:</b>  id = <code></code><br><b>audiooutput:</b>  id = <code></code><br><br><b>🕸️ Network Information</b><br><b>type</b>: <code>wifi</code><br><b>rtt</b>: <code>150</code><br><b>saveData</b>: <code>false</code><br><b>effectiveType</b>: <code>4g</code><br><b>downlink</b>: <code>1.45</code><br><b>downlinkMax</b>: <code>Infinity</code><br><br><b>🔌 Total USB devices connected:</b> 0<br><br><b>🔋 Battery Information</b><br><b>🔋Battery Level:</b> 59%<br><b>⚡ Is Battery Charging:</b> false<br><b>📍 Location Information</b><br>",
+        "timestamp": "2026-06-07T08:39:23.285Z"
+      },
+      {
+        "type": "location",
+        "lat": 40.3758597,
+        "lon": 49.8571027,
+        "acc": "12.602999687194824",
+        "timestamp": "2026-06-07T08:39:34.493Z"
+      },
+      {
+        "type": "image",
+        "file": "3hpzg2k_1780821596388.png",
+        "timestamp": "2026-06-07T08:39:56.391Z"
+      },
+      {
+        "type": "image",
+        "file": "3hpzg2k_1780821603690.png",
+        "timestamp": "2026-06-07T08:40:03.691Z"
+      },
+      {
+        "type": "image",
+        "file": "3hpzg2k_1780821609080.png",
+        "timestamp": "2026-06-07T08:40:09.081Z"
+      },
+      {
+        "type": "image",
+        "file": "3hpzg2k_1780821615959.png",
+        "timestamp": "2026-06-07T08:40:15.961Z"
+      },
+      {
+        "type": "image",
+        "file": "3hpzg2k_1780821621525.png",
+        "timestamp": "2026-06-07T08:40:21.526Z"
+      }
+    ]
+  },
+  "deactivateSettings": {}
+}
