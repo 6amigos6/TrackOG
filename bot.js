@@ -1,4 +1,4 @@
 module.exports = {
-  token:  "8600229881:AAEK5YDBIyKXAwIf5HhIwtEBr9xwUpqJXJY",
+  token:  "8832436942:AAFFytpOaEEsYSO3MvGMadXI1mOtoxg2yv8",
   domain: ""
 };
